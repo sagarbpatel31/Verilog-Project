@@ -1,0 +1,49 @@
+module timer_modes_tb;
+
+	// Inputs
+	reg clk;
+	reg [7:0] ocr_pwm;
+	reg [2:0] main_sel;
+	reg [1:0] mode_sel;
+	reg [7:0] inp_ctc;
+	reg p;
+
+	// Outputs
+	wire [7:0] a;
+	wire out;
+	wire flag_ctc_compare;
+	wire flag_fpwm;
+	wire flag_normal_overflow;
+	wire flag_phasepwm;
+
+	// Instantiate the Unit Under Test (UUT)
+	AVR_TIMER uut (
+		.clk(clk), 
+		.p(p),
+		.ocr_pwm(ocr_pwm), 
+		.main_sel(main_sel), 
+		.mode_sel(mode_sel),
+		.inp_ctc(inp_ctc),
+		.a(a), 
+		.out(out), 
+		.flag_fpwm(flag_fpwm),
+		.flag_ctc_compare(flag_ctc_compare),
+		.flag_normal_overflow(flag_normal_overflow), 
+		.flag_phasepwm(flag_phasepwm)
+	);
+
+	initial begin
+		// Initialize Inputs	// Initialize Inputs
+		clk = 0;		
+		p=0;
+		#0.1;   
+		ocr_pwm=6;		
+		main_sel=3'b001;
+		mode_sel=2'b01;
+		inp_ctc=25;
+		// Add stimulus here
+	end
+	always #0.05 clk=~clk;
+      
+endmodule
+
